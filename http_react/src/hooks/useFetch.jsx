@@ -7,6 +7,7 @@ export const useFetch = (url) => {
   const [callFetch, setCallFetch] = useState(null);
   const [id, setId] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [loadingRequest, setLoadingRequest] = useState(false);
   const [error, setError] = useState(null);
 
   const httpConfig = (data, method) => {
@@ -53,7 +54,7 @@ export const useFetch = (url) => {
       });
 
       setId(data.id);
-      setMethod(method)
+      setMethod(method);
     }
   };
 
@@ -82,6 +83,7 @@ export const useFetch = (url) => {
       let json;
       try {
         setLoading(true);
+        setLoadingRequest(true);
 
         if (method === "POST") {
           let fetchOptions = [url, config];
@@ -95,7 +97,7 @@ export const useFetch = (url) => {
           json = await res.json();
         }
 
-        setLoading(false);
+        setLoadingRequest(false);
         setCallFetch(json);
       } catch (error) {
         console.log(error);
@@ -106,5 +108,5 @@ export const useFetch = (url) => {
     httpRequest();
   }, [config, method, url]);
 
-  return { data, httpConfig, loading, error };
+  return { data, httpConfig, loading, loadingRequest, error };
 };

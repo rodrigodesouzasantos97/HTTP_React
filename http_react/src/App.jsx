@@ -5,7 +5,13 @@ import "./App.css";
 const url = "http://localhost:3000/products";
 
 function App() {
-  const { data: products, httpConfig, loading, error } = useFetch(url);
+  const {
+    data: products,
+    httpConfig,
+    loading,
+    loadingRequest,
+    error,
+  } = useFetch(url);
 
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
@@ -20,6 +26,8 @@ function App() {
 
   const [overlayReplaceIsOpen, setOverlayReplaceIsOpen] = useState(false);
   const [overlayEditIsOpen, setOverlayEditIsOpen] = useState(false);
+
+  const isLoading = loading || loadingRequest;
 
   const handlePostSubmit = (e) => {
     e.preventDefault();
@@ -106,7 +114,7 @@ function App() {
     <>
       <div id="container">
         <h1>HTTP em React</h1>
-        {loading && <p id="loading">Carregando...</p>}
+        {isLoading && <p id="loading">Carregando...</p>}
 
         {error && <p id="error">{error}</p>}
 
@@ -120,7 +128,7 @@ function App() {
                     onClick={() =>
                       replaceProduct(product.id, product.name, product.price)
                     }
-                    disabled={loading}
+                    disabled={isLoading}
                   >
                     <i className="fa-solid fa-eraser"></i>
                   </button>
@@ -128,13 +136,13 @@ function App() {
                     onClick={() => {
                       editProduct(product.id, product.name, product.price);
                     }}
-                    disabled={loading}
+                    disabled={isLoading}
                   >
                     <i className="fa-solid fa-pen-to-square"></i>
                   </button>
                   <button
                     onClick={() => handleDelete(product.id)}
-                    disabled={loading}
+                    disabled={isLoading}
                   >
                     <i className="fa-solid fa-trash"></i>
                   </button>
@@ -167,8 +175,8 @@ function App() {
             </label>
             <input
               type="submit"
-              value={loading ? "Aguarde" : "Adicionar"}
-              disabled={loading}
+              value={isLoading ? "Aguarde" : "Adicionar"}
+              disabled={isLoading}
               id="submit-btn"
             />
           </form>
@@ -199,8 +207,8 @@ function App() {
               </label>
               <input
                 type="submit"
-                value={loading ? "Aguarde" : "Substituir"}
-                disabled={loading}
+                value={isLoading ? "Aguarde" : "Substituir"}
+                disabled={isLoading}
                 id="submit-btn"
               />
               <button
@@ -232,8 +240,8 @@ function App() {
                 </label>
                 <input
                   type="submit"
-                  value={loading ? "Aguarde" : "Editar"}
-                  disabled={loading}
+                  value={isLoading ? "Aguarde" : "Editar"}
+                  disabled={isLoading}
                   id="submit-btn"
                 />
               </form>
@@ -250,8 +258,8 @@ function App() {
                 </label>
                 <input
                   type="submit"
-                  value={loading ? "Aguarde" : "Editar"}
-                  disabled={loading}
+                  value={isLoading ? "Aguarde" : "Editar"}
+                  disabled={isLoading}
                   id="submit-btn"
                 />
               </form>
