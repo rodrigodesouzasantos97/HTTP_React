@@ -25,37 +25,9 @@
   padding: 0.5rem;
 }
 
-.productElement button {
-  margin-left: 0.5rem;
-  border: none;
-  padding: 0.1rem;
-  border-radius: 3px;
-  background-color: #fff;
-  cursor: pointer;
-  opacity: 0.9;
-}
-
-#add-container,
-#replace-container {
+#add-container{
   display: flex;
   justify-content: center;
-}
-
-#submit-btn {
-  width: 100px;
-  text-transform: uppercase;
-  font-weight: bold;
-  border: none;
-  border-radius: 5px;
-  padding-left: 0;
-  background-color: #fff;
-  cursor: pointer;
-  opacity: 0.9;
-}
-
-.productElement button:hover,
-#submit-btn:hover {
-  opacity: 1;
 }
 
 #loading,
@@ -88,20 +60,4 @@
   border-radius: 8px;
   width: 300px;
   position: relative;
-}
-
-#close-btn {
-  position: absolute;
-  left: 275px;
-  top: 5px;
-  border: none;
-  padding: 0.1rem;
-  border-radius: 3px;
-  background-color: #fff;
-  cursor: pointer;
-  opacity: 0.9;
-}
-
-#close-btn:hover {
-  opacity: 1;
 }

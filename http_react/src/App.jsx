@@ -2,6 +2,10 @@ import { useState, useEffect } from "react";
 import { useFetch } from "./hooks/useFetch";
 import "./App.css";
 
+import InputField from "./components/InputField";
+import InputSubmit from "./components/InputSubmit";
+import GenericButton from "./components/GenericButton";
+
 const url = "http://localhost:3000/products";
 
 function App() {
@@ -124,28 +128,28 @@ function App() {
               products.map((product) => (
                 <li key={product.id} className="productElement">
                   {product.name} - R${product.price}
-                  <button
-                    onClick={() =>
+                  <GenericButton
+                    currentClassName={"productButton"}
+                    onClickMethod={() =>
                       replaceProduct(product.id, product.name, product.price)
                     }
-                    disabled={isLoading}
-                  >
-                    <i className="fa-solid fa-eraser"></i>
-                  </button>
-                  <button
-                    onClick={() => {
-                      editProduct(product.id, product.name, product.price);
-                    }}
-                    disabled={isLoading}
-                  >
-                    <i className="fa-solid fa-pen-to-square"></i>
-                  </button>
-                  <button
-                    onClick={() => handleDelete(product.id)}
-                    disabled={isLoading}
-                  >
-                    <i className="fa-solid fa-trash"></i>
-                  </button>
+                    loading={isLoading}
+                    children={<i className="fa-solid fa-eraser"></i>}
+                  />
+                  <GenericButton
+                    currentClassName={"productButton"}
+                    onClickMethod={() =>
+                      editProduct(product.id, product.name, product.price)
+                    }
+                    loading={isLoading}
+                    children={<i className="fa-solid fa-pen-to-square"></i>}
+                  />
+                  <GenericButton
+                    currentClassName={"productButton"}
+                    onClickMethod={() => handleDelete(product.id)}
+                    loading={isLoading}
+                    children={<i className="fa-solid fa-trash"></i>}
+                  />
                 </li>
               ))}
           </ul>
@@ -153,73 +157,47 @@ function App() {
 
         <div id="add-container">
           <form onSubmit={handlePostSubmit}>
-            <label>
-              <span>Nome:</span>
-              <input
-                type="text"
-                name="name"
-                placeholder="Digite o nome do produto"
-                onChange={(e) => setName(e.target.value)}
-                value={name}
-              />
-            </label>
-            <label>
-              <span>Preço:</span>
-              <input
-                type="text"
-                name="name"
-                placeholder="Digite o preço do produto"
-                onChange={(e) => setPrice(e.target.value)}
-                value={price}
-              />
-            </label>
-            <input
-              type="submit"
-              value={isLoading ? "Aguarde" : "Adicionar"}
-              disabled={isLoading}
-              id="submit-btn"
+            <InputField
+              label="Nome:"
+              placeholder="Digite o nome do produto"
+              onChangeMethod={setName}
+              value={name}
             />
+            <InputField
+              label="Preço:"
+              placeholder="Digite o preço do produto"
+              onChangeMethod={setPrice}
+              value={price}
+            />
+            <InputSubmit loading={isLoading} value="Adicionar" />
           </form>
         </div>
 
         {overlayReplaceIsOpen && (
           <div className="overlay">
             <form onSubmit={handlePutSubmit} className="modal">
-              <label>
-                <span>Nome:</span>
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Digite o nome do produto"
-                  onChange={(e) => setReplaceName(e.target.value)}
-                  value={replaceName}
-                />
-              </label>
-              <label>
-                <span>Preço:</span>
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Digite o preço do produto"
-                  onChange={(e) => setReplacePrice(e.target.value)}
-                  value={replacePrice}
-                />
-              </label>
-              <input
-                type="submit"
-                value={isLoading ? "Aguarde" : "Substituir"}
-                disabled={isLoading}
-                id="submit-btn"
+              <InputField
+                label="Nome:"
+                placeholder="Digite o nome do produto"
+                onChangeMethod={setReplaceName}
+                value={replaceName}
               />
-              <button
-                id="close-btn"
-                onClick={(e) => {
+              <InputField
+                label="Preço:"
+                placeholder="Digite o preço do produto"
+                onChangeMethod={setReplacePrice}
+                value={replacePrice}
+              />
+              <InputSubmit loading={isLoading} value="Substituir" />
+              <GenericButton
+                currentClassName={"close-btn"}
+                onClickMethod={(e) => {
                   e.preventDefault();
                   setOverlayReplaceIsOpen(false);
                 }}
-              >
-                <i className="fa-solid fa-x"></i>
-              </button>
+                loading={isLoading}
+                children={<i className="fa-solid fa-x"></i>}
+              />
             </form>
           </div>
         )}
@@ -228,50 +206,32 @@ function App() {
           <div className="overlay">
             <div className="modal">
               <form onSubmit={handlePatchNameSubmit}>
-                <label>
-                  <span>Nome:</span>
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Digite o nome do produto"
-                    onChange={(e) => setEditName(e.target.value)}
-                    value={editName}
-                  />
-                </label>
-                <input
-                  type="submit"
-                  value={isLoading ? "Aguarde" : "Editar"}
-                  disabled={isLoading}
-                  id="submit-btn"
+                <InputField
+                  label="Nome:"
+                  placeholder="Digite o nome do produto"
+                  onChangeMethod={setEditName}
+                  value={editName}
                 />
+                <InputSubmit loading={isLoading} value="Editar Nome" />
               </form>
               <form onSubmit={handlePatchPriceSubmit}>
-                <label>
-                  <span>Preço:</span>
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Digite o preço do produto"
-                    onChange={(e) => setEditPrice(e.target.value)}
-                    value={editPrice}
-                  />
-                </label>
-                <input
-                  type="submit"
-                  value={isLoading ? "Aguarde" : "Editar"}
-                  disabled={isLoading}
-                  id="submit-btn"
+                <InputField
+                  label="Preço:"
+                  placeholder="Digite o preço do produto"
+                  onChangeMethod={setEditPrice}
+                  value={editPrice}
                 />
+                <InputSubmit loading={isLoading} value="Editar Preço" />
               </form>
-              <button
-                id="close-btn"
-                onClick={(e) => {
+              <GenericButton
+                currentClassName={"close-btn"}
+                onClickMethod={(e) => {
                   e.preventDefault();
                   setOverlayEditIsOpen(false);
                 }}
-              >
-                <i className="fa-solid fa-x"></i>
-              </button>
+                loading={isLoading}
+                children={<i className="fa-solid fa-x"></i>}
+              />
             </div>
           </div>
         )}
