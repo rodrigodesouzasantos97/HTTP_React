@@ -1,0 +1,19 @@
+{
+  "products": [
+    {
+      "id": "5",
+      "name": "Capa de chuva",
+      "price": "70"
+    },
+    {
+      "id": "6",
+      "name": "Teclado gamer",
+      "price": "350"
+    },
+    {
+      "id": "7",
+      "name": "Cadeira",
+      "price": "450"
+    }
+  ]
+}
