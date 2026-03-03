@@ -16,15 +16,6 @@
   border-radius: 5px;
 }
 
-.productElement {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 50px;
-  border: 1px solid #000;
-  padding: 0.5rem;
-}
-
 #add-container{
   display: flex;
   justify-content: center;

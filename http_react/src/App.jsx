@@ -5,6 +5,7 @@ import "./App.css";
 import InputField from "./components/InputField";
 import InputSubmit from "./components/InputSubmit";
 import GenericButton from "./components/GenericButton";
+import ProductElement from "./components/ProductElement";
 
 const url = "http://localhost:3000/products";
 
@@ -126,31 +127,19 @@ function App() {
           <ul>
             {products &&
               products.map((product) => (
-                <li key={product.id} className="productElement">
-                  {product.name} - R${product.price}
-                  <GenericButton
-                    currentClassName={"productButton"}
-                    onClickMethod={() =>
-                      replaceProduct(product.id, product.name, product.price)
-                    }
-                    loading={isLoading}
-                    children={<i className="fa-solid fa-eraser"></i>}
-                  />
-                  <GenericButton
-                    currentClassName={"productButton"}
-                    onClickMethod={() =>
-                      editProduct(product.id, product.name, product.price)
-                    }
-                    loading={isLoading}
-                    children={<i className="fa-solid fa-pen-to-square"></i>}
-                  />
-                  <GenericButton
-                    currentClassName={"productButton"}
-                    onClickMethod={() => handleDelete(product.id)}
-                    loading={isLoading}
-                    children={<i className="fa-solid fa-trash"></i>}
-                  />
-                </li>
+                <ProductElement
+                  key={product.id}
+                  name={product.name}
+                  price={product.price}
+                  replaceProduct={() =>
+                    replaceProduct(product.id, product.name, product.price)
+                  }
+                  editProduct={() =>
+                    editProduct(product.id, product.name, product.price)
+                  }
+                  handleDelete={() => handleDelete(product.id)}
+                  isLoading={isLoading}
+                />
               ))}
           </ul>
         </div>
